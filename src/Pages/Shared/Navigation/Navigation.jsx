@@ -1,43 +1,38 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   return (
-    <nav className="container mx-auto">
-      <div className="navbar bg-base-100">
-        <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
-        </div>
-        <div className="flex-none">
-          <ul className="menu menu-horizontal p-0">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li tabIndex={0}>
-              <a>
-                Parent
-                <svg
-                  className="fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                </svg>
-              </a>
-              <ul className="p-2 bg-base-100">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
+    <nav className="   font-semibold shadow-md shadow-slate-300 bg-white sticky top-0 z-50">
+      <div className="navbar py-4 container mx-auto ">
+        <div className="flex justify-between w-full">
+          <div className="flex">
+            <a className="btn btn-ghost normal-case text-4xl">PICKY<span className="text-purple-700">PRO</span></a>
+          </div>
+          <div className="flex-none">
+            <ul className="menu menu-horizontal p-0 text-lg text-purple-800">
+              <li>
+                <Link to="/home">Home</Link>
+              </li>
+              <li>
+                <Link to="/home">Services</Link>
+              </li>
+              <li>
+                <Link to="/home">Blog</Link>
+              </li>
+            </ul>
+          </div>
+          <div className="flex items-center">
+            <div className="text-lg">
+                <Link to='/login' className="bg-primary py-3 px-6 mx-2 rounded-full text-white">Login</Link>
+                <Link to='/register' className="bg-purple-700 py-3 px-6 mx-2 rounded-full text-white">Signup</Link>
+            </div>
+          <div className="avatar ml-4">
+            <div className="w-12 rounded-full">
+              <img src="https://placeimg.com/192/192/people" />
+            </div>
+          </div>
+          </div>
         </div>
       </div>
     </nav>

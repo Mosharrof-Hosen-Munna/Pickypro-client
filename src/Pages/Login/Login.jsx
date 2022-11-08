@@ -1,8 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({});
+  const [error, setError] = useState("");
+
+  const {handleEmailPasswordLogin,
+    setLoading,
+    handleGoogleSignIn,
+    handleGithubSignIn,} = useAuth()
+
+    const location = useLocation();
+    const navigate = useNavigate();
+    let from = location.state?.from?.pathname || "/";
+
+
   const handleOnChange = (e) => {
     const field = e.target.name;
     const value = e.target.value;
@@ -12,26 +25,46 @@ const Login = () => {
   };
 
   const handleEmailLogin = (e) => {
-    //     setLoading(true);
-    //     e.preventDefault();
-    //    if(loginData.email&&loginData.password){
-    //     handleEmailPasswordLogin(loginData.email, loginData.password)
-    //     .then((result) => {
-    //       navigate(from, { replace: true });
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //       setError("Email or password wrong!");
-    //     })
-    //     .finally(() => setLoading(false));
-    //    }
+        setLoading(true);
+        e.preventDefault();
+       if(loginData.email&&loginData.password){
+        handleEmailPasswordLogin(loginData.email, loginData.password)
+        .then((result) => {
+          navigate(from, { replace: true });
+        })
+        .catch((e) => {
+          console.log(e);
+          setError("Email or password wrong!");
+        })
+        .finally(() => setLoading(false));
+       }
   };
+
+  const signInGoogle = () => {
+    setLoading(true);
+    handleGoogleSignIn()
+      .then((result) => {
+        navigate(from, { replace: true });
+      })
+      .catch((error) => console.log(error.message))
+      .finally(() => setLoading(false));
+  };
+
+  const signInGithub = () => {
+    setLoading(true);
+    handleGithubSignIn()
+      .then((result) => {
+        navigate(from, { replace: true });
+      })
+      .finally(() => setLoading(false));
+  };
+
   return (
     <div>
       <div className=" min-h-screen bg-slate-100">
         <div className="container mx-auto">
           <div className="flex items-center justify-center min-h-screen">
-          <div className="card  md:w-1/3 shadow-xl bg-base-100">
+          <div className="card md:-mt-12 md:w-1/3 shadow-xl bg-base-100">
             <div className="card-body">
               <form onSubmit={handleEmailLogin}>
                 <h1 className="text-3xl font-bold text-center mb-4">Login</h1>
@@ -85,7 +118,7 @@ const Login = () => {
                   </label>
                 </div>
                 <div className="form-control mt-6">
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="btn bg-purple-700">
                     Login
                   </button>
                 </div>
@@ -98,7 +131,7 @@ const Login = () => {
                   </Link>
                 </label>
               </form>
-              {/* <div className="form-control mt-2">
+              <div className="form-control mt-2">
                 <button
                   onClick={signInGoogle}
                   className="btn shadow-md btn-ghost"
@@ -110,7 +143,7 @@ const Login = () => {
                 <button onClick={signInGithub} className="btn shadow-md ">
                   Login with Github
                 </button>
-              </div> */}
+              </div>
             </div>
           </div>
           </div>

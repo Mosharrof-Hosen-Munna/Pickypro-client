@@ -1,9 +1,15 @@
 import React from 'react'
+import ServiceCard from '../Shared/ServiceCard/ServiceCard'
+import MyOffer from './MyOffer/MyOffer'
+import Topbanner from './TopBanner/Topbanner'
+import WhyChooseMe from './WhyChooseMe/WhyChooseMe'
 
 const Home = () => {
   return (
-    <div className='py-5'>
-        <button className='btn bg-purple-700'>Button</button>
+    <div className='mb-12'>
+        <Topbanner/>
+       <MyOffer/>
+       <WhyChooseMe/>
     </div>
   )
 }

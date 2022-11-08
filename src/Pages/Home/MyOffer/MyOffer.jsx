@@ -10,7 +10,7 @@ const MyOffer = () => {
             <h1 className='text-6xl font-semibold'>Real Wedding Memories <br /> Captured</h1>
             
         </div>
-        <div className="grid grid-cols-3 gap-8 my-12">
+        <div className="grid grid-cols-3 gap-12 my-12">
         <ServiceCard/>
         <ServiceCard/>
         <ServiceCard/>

@@ -20,10 +20,10 @@ const ServiceCard = () => {
         <hr />
         <div className="flex justify-between font-semibold text-lg mt-4 mb-auto">
           <div className="text-xl font-bold text-purple-700"> 50$</div>
-          <Link to={`/courses/details/${45243}`}>
+          <Link to={`/service/details/${45243}`}>
             <div className="flex items-center hover:text-purple-700 duration-300">
               Know Details
-            </div>{" "}
+            </div>
           </Link>
         </div>
       </div>

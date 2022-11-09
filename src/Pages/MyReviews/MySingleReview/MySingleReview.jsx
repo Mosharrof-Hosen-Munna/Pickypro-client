@@ -1,28 +1,47 @@
 import React, { useEffect, useState } from "react";
-import Moment from 'react-moment';
+import Moment from "react-moment";
 import SimilarServiceCard from "../../ServiceDetails/SimilarServiceCard/SimilarServiceCard";
 import StarRatings from "react-star-ratings";
 import axios from "axios";
 
-const MySingleReview = ({review}) => {
+const MySingleReview = ({ review,index, handleReviewDelete ,handleReviewUpdate}) => {
+  
   const [show, setShow] = useState(false);
   const [ratingNumber, setRatingNumber] = useState(review.rating);
-  const [service,setService] = useState({})  
-  const [reviewMessage, setReviewMessage] = useState('');
+  const [service, setService] = useState({});
+  const [reviewMessage, setReviewMessage] = useState("");
+
+  useEffect(() => {
+    setReviewMessage(review.message);
+    axios
+      .get(`http://localhost:5000/api/service/${review.serviceId}`)
+      .then((res) => setService(res.data.service))
+      .catch((err) => console.log(err));
+  }, []); 
 
   useEffect(()=>{
-    setReviewMessage(review.message)
-    axios.get(`http://localhost:5000/api/service/${review.serviceId}`)
-    .then(res=>setService(res.data.service))
-    .catch(err=>console.log(err))
-  },[])
+    setReviewMessage(review.message);
+    setRatingNumber(review.rating)
+  },[review]) 
+  
+  const handleSaveReview = () => {
 
-  const handleSaveReview=()=>{
-    setShow(false)
-  }
+    axios
+      .put(`http://localhost:5000/api/review/update/${review._id}`, {
+        rating: ratingNumber,
+        message: reviewMessage,
+        time:new Date()
+      })
+      .then((res) => {
+        setShow(false);
+        handleReviewUpdate(res.data,index)
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <div className="flex items-start  bg-white shadow-lg rounded-lg shadow-slate-200 p-4 my-8">
+   <div>
+     <div className="flex items-start  bg-white shadow-lg rounded-lg shadow-slate-200 p-4 my-8">
       <div className="avatar">
         <div className="w-14 rounded-full">
           <img src={review.author.photoURL} />
@@ -48,7 +67,7 @@ const MySingleReview = ({review}) => {
             <div className="ml-1">({review.rating})</div>
           </div>
           <div className="flex">
-            <div className="text-lg py-1 px-2 bg-slate-200 rounded-lg font-bold text-red-600 cursor-pointer">
+            <div onClick={()=>handleReviewDelete(review._id)} className="text-lg py-1 px-2 bg-slate-200 rounded-lg font-bold text-red-600 cursor-pointer">
               Delete
             </div>
             <div
@@ -71,7 +90,7 @@ const MySingleReview = ({review}) => {
             <div>
               <div className="w-full my-4">
                 <textarea
-                  className="textarea w-full shadow"
+                  className="textarea text-lg w-full shadow"
                   rows={4}
                   value={reviewMessage}
                   onChange={(e) => setReviewMessage(e.target.value)}
@@ -79,7 +98,12 @@ const MySingleReview = ({review}) => {
                 ></textarea>
               </div>
               <div className="flex justify-end">
-                <button onClick={handleSaveReview} className="btn btn-primary">Save Review</button>
+                <button
+                  onClick={handleSaveReview}
+                  className="btn bg-purple-700"
+                >
+                  Save Review
+                </button>
               </div>
             </div>
           </div>
@@ -87,7 +111,7 @@ const MySingleReview = ({review}) => {
         {!show && (
           <div>
             <p className=" text-lg mb-6 px-3 py-2 bg-slate-200 rounded-md">
-              {reviewMessage}
+              {review.message}
             </p>
           </div>
         )}
@@ -95,12 +119,15 @@ const MySingleReview = ({review}) => {
           <h1 className="text-2xl font-semibold">
             For <span className="text-purple-700">{service.title}</span> service
           </h1>
-          {service.description&&<SimilarServiceCard isShow={true} service={service}>
-          {service.description.slice(0,300)} ...
-          </SimilarServiceCard>}
+          {service.description && (
+            <SimilarServiceCard isShow={true} service={service}>
+              {service.description.slice(0, 300)} ...
+            </SimilarServiceCard>
+          )}
         </div>
       </div>
     </div>
+   </div>
   );
 };
 

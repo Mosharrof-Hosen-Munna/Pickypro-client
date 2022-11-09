@@ -1,11 +1,11 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useLoaderData } from 'react-router-dom'
 import useAuth from '../../Hooks/useAuth'
 import MySingleReview from './MySingleReview/MySingleReview'
 
 const MyReviews = () => {
   const [reviews,setReviews] = useState([])
-
+  
   const {user} = useAuth()
 
   useEffect(()=>{
@@ -16,6 +16,30 @@ const MyReviews = () => {
       setReviews(data)})
     .catch(err=>console.log(err))
   },[user])
+
+  const handleReviewDelete = (reviewId)=>{
+    axios.delete(`http://localhost:5000/api/review/delete/${reviewId}`)
+    .then(res=>{
+      if(res.data.deletedCount ===1){
+        const oldReviews = [...reviews]
+        const newReviews = oldReviews.filter(review=>review._id !== reviewId)
+        setReviews(newReviews)
+      }
+    })
+    .catch(err=>console.log(err))
+  }
+  const handleReviewUpdate = (review,index)=>{
+    const newReviews = [...reviews]
+    newReviews[index] = review
+    setReviews(newReviews)
+  }
+
+  if(!reviews[0]){
+    return <div className='min-h-screen'>
+      <h1 className='text-center text-4xl font-semibold text-purple-700 py-12 pb-72'>You have no review yet!</h1>
+    </div>
+  }
+
   return (
     <section className='py-12'>
         <div className="container mx-auto">
@@ -25,7 +49,7 @@ const MyReviews = () => {
             </div>
             <div className='mt-4 w-3/4 mx-auto'>
                {
-                reviews.map(review=><MySingleReview review={review}/>)
+                reviews.map((review,index)=><MySingleReview handleReviewUpdate={handleReviewUpdate} index={index} handleReviewDelete={handleReviewDelete} review={review}/>)
                }
             </div>
         </div>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 
 const SimilarServiceCard = ({ children, service,isShow }) => {
-  console.log(service)
+  // console.log(service)
   const { image, price, description, title, ratings } = service;
   return (
     <div className="card shadow-lg my-4 rounded-md shadow-slate-200 p-2">
@@ -18,7 +18,7 @@ const SimilarServiceCard = ({ children, service,isShow }) => {
           />
         </div>
         <div className="ml-4 w-2/3">
-          <h1 className="font-semibold text-xl">{title}</h1>
+          <h1 className="font-semibold text-2xl">{title}</h1>
          {!isShow &&  <p>{description.slice(0,70)}...</p>}
           <h1 className="text-xl text-purple-700 font-semibold ">Price: ${price}</h1>
           <div className="">

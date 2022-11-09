@@ -32,7 +32,7 @@ const ReviewCard = ({ review }) => {
             Delete
           </div>
         </div>
-        <p className="font-semibold">{message}</p>
+        <p className=" text-lg mb-6 px-3 py-2 bg-slate-200 rounded-md">{message}</p>
       </div>
     </div>
     // <div className="flex items-start bg-white shadow-lg rounded-lg shadow-slate-200 p-4 my-4">

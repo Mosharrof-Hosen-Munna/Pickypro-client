@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
 import ServiceCard from "../Shared/ServiceCard/ServiceCard";
 
 const Services = () => {
+
+  const services = useLoaderData()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <section className="py-12">
       <div className="container mx-auto">
@@ -15,12 +22,7 @@ const Services = () => {
           <div className="w-1/12 p-1 bg-purple-700 mt-3"></div>
         </div>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-12">
-            <ServiceCard/>
-            <ServiceCard/>
-            <ServiceCard/>
-            <ServiceCard/>
-            <ServiceCard/>
-            <ServiceCard/>
+            {services.map(service=><ServiceCard service={service}/>)}
         </div>
       </div>
     </section>

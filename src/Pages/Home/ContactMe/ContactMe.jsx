@@ -40,7 +40,7 @@ const ContactMe = () => {
                   </div>
                   <div>
                     <input
-                      type="email"
+                      type="text"
                       placeholder="Your Subject"
                       className="input w-full max-w-lg shadow"
                     />
@@ -54,7 +54,7 @@ const ContactMe = () => {
                   ></textarea>
                 </div>
                 <div className="flex justify-end">
-                  <button className="btn bg-purple-700">Submit Review</button>
+                  <button className="btn bg-purple-700">Submit</button>
                 </div>
               </div>
             </div>

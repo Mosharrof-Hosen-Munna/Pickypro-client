@@ -17,18 +17,31 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: async()=>{
+          return fetch('http://localhost:5000/api/services/limit')
+        }
       },
       {
         path: "/home",
         element: <Home />,
+        loader: async()=>{
+          return fetch('http://localhost:5000/api/services/limit')
+        }
       },
       {
         path: "/services",
         element: <Services />,
+        loader: async()=>{
+          return fetch('http://localhost:5000/api/services')
+        }
+        
       },
       {
         path: "/service/details/:serviceId",
         element: <ServiceDetails />,
+        loader: async({params})=>{
+          return fetch(`http://localhost:5000/api/service/${params.serviceId}`)
+        }
       },
       {
         path: "/my-reviews",

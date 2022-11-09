@@ -1,50 +1,38 @@
 import React from "react";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import StarRatings from "react-star-ratings";
+import Moment from 'react-moment';
 const ReviewCard = ({ review }) => {
+  const {author, message,rating,time,_id} = review
 
   return (
     <div className="flex items-start bg-white shadow-lg rounded-lg shadow-slate-200 p-4 my-4">
       <div className="avatar">
         <div className="w-14 rounded-full">
-          <img src="https://preview.moxcreative.com/amerta/wp-content/uploads/sites/5/2022/02/confident-photographer-.jpg" />
+          <img src={author.photoURL} />
         </div>
       </div>
       <div className="ml-8 w-full">
         <div className="flex items-center justify-between">
           <div className="mb-4">
-            <h3 className="text-xl font-bold">Mosharrof Hosen Munna</h3>
-            <p>january</p>
+            <h3 className="text-xl font-bold">{author.name}</h3>
+            <Moment fromNow>{new Date(time)}</Moment>
           </div>
           <div className="flex text-rose-600">
-          <FontAwesomeIcon
-                  className=" text-purple-700 "
-                  icon={faStar}
-                />
-                <FontAwesomeIcon
-                  className=" text-purple-700 "
-                  icon={faStar}
-                />
-                <FontAwesomeIcon
-                  className=" text-purple-700 "
-                  icon={faStar}
-                />
-                <FontAwesomeIcon
-                  className=" text-purple-700 "
-                  icon={faStar}
-                />
-                <FontAwesomeIcon
-                  className=" text-purple-700 "
-                  icon={faStar}
-                />
-                (4.8)
+          <StarRatings
+              rating={parseInt(rating)}
+              starRatedColor="purple"
+              starDimension="20px"
+        starSpacing="1px"
+              numberOfStars={5}
+              name="rating"
+            />
+                ({rating})
           </div>
           <div className="text-lg font-bold text-red-600 cursor-pointer">
             Delete
           </div>
         </div>
-        <p className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt architecto dignissimos quam vel ipsa aspernatur doloribus laudantium praesentium et vero dolore illum amet voluptatibus eaque, sunt distinctio magni ad sit.</p>
+        <p className="font-semibold">{message}</p>
       </div>
     </div>
     // <div className="flex items-start bg-white shadow-lg rounded-lg shadow-slate-200 p-4 my-4">

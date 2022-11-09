@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import ServiceCard from '../../Shared/ServiceCard/ServiceCard'
 
-const MyOffer = () => {
+const MyOffer = ({services}) => {
   return (
     <div className='container mx-auto py-24'>
         <div className='text-center'>
@@ -11,9 +11,9 @@ const MyOffer = () => {
             
         </div>
         <div className="grid grid-cols-3 gap-12 my-12">
-        <ServiceCard/>
-        <ServiceCard/>
-        <ServiceCard/>
+        {
+          services.map(service=><ServiceCard service={service}/>)
+        }
        </div>
        <div className='text-xl text-center hover:text-purple-700 duration-300 font-semibold'>
         <Link to='/services'>See All Services</Link>

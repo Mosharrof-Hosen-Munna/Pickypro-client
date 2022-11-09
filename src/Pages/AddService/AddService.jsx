@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios'
 
 const AddService = () => {
 
@@ -14,6 +15,17 @@ const AddService = () => {
 
     const handleSubmit = (e)=>{
         e.preventDefault()
+
+        if(serviceData.ratings <0 || serviceData.ratings >5){
+        return  alert("Please Provide ratings between 0 to 5")
+        }
+
+        axios.post('http://localhost:5000/api/service/create',serviceData)
+        .then(res=>{
+         e.target.reset()
+        })
+        .catch(err=>console.log(err))
+
     }
 
 
@@ -42,6 +54,7 @@ const AddService = () => {
                   type="text"
                   placeholder="Enter a title"
                   className="input input-bordered"
+                  required
                 />
               </div>
               <div className="form-control my-2">
@@ -56,6 +69,7 @@ const AddService = () => {
                   type="text"
                   placeholder="Enter a service image"
                   className="input input-bordered"
+                  required
                 />
               </div>
               <div className="form-control my-2">
@@ -69,6 +83,7 @@ const AddService = () => {
                   onChange={handleChange}
                   type="number"
                   placeholder="Enter price"
+                  required
                   className="input input-bordered"
                 />
               </div>
@@ -82,8 +97,9 @@ const AddService = () => {
                   name="ratings"
                   onChange={handleChange}
                   type="number"
-                  placeholder="Enter price"
+                  placeholder="Ratings must be 0 to 5"
                   className="input input-bordered"
+                  required
                 />
               </div>
               <div className="form-control my-2">
@@ -98,6 +114,7 @@ const AddService = () => {
                   rows={6}
                   placeholder="Enter a long description"
                   className="textarea input-bordered"
+                  required
                 />
               </div>
               <div className="text-center my-6">

@@ -5,31 +5,30 @@ import "react-photo-view/dist/react-photo-view.css";
 import StarRatings from "react-star-ratings";
 
 
-const ServiceCard = () => {
-  const [ratingNumber,setRatingNumber] = useState(3.5)
+const ServiceCard = ({service}) => {
+  const {title,price,image,ratings,description,_id} = service
   return (
     <div className="card rounded-sm shadow-lg shadow-slate-200">
       <div>
         <PhotoProvider>
-          <PhotoView src="https://preview.moxcreative.com/amerta/wp-content/uploads/sites/5/2022/02/confident-photographer-.jpg">
+          <PhotoView src={image}>
             <img
-              className="rounded-t rounded-sm"
-              src="https://preview.moxcreative.com/amerta/wp-content/uploads/sites/5/2022/02/confident-photographer-.jpg"
+              className="rounded-t rounded-sm w-full"
+              src={image}
               alt="img"
             />
           </PhotoView>
         </PhotoProvider>
       </div>
       <div className="card-body">
-        <h1 className="text-2xl font-bold">Video Shooting</h1>
+        <h1 className="text-2xl font-bold">{title}</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas modi
-          tempore, explicabo optio quia illo?
+          {description.slice(0,100)}...
         </p>
         <div className="text-end">
-          (4){' '}
+          ({ratings}){' '}
         <StarRatings
-              rating={ratingNumber}
+              rating={parseInt(ratings)}
               starRatedColor="purple"
               starDimension="20px"
         starSpacing="1px"
@@ -40,8 +39,8 @@ const ServiceCard = () => {
             
         <hr />
         <div className="flex justify-between font-semibold text-lg mt-4 mb-auto">
-          <div className="text-xl font-bold text-purple-700"> 50$</div>
-          <Link to={`/service/details/${45243}`}>
+          <div className="text-xl font-bold text-purple-700"> {price}$</div>
+          <Link to={`/service/details/${_id}`}>
             <div className="flex items-center hover:text-purple-700 duration-300">
               Know Details
             </div>

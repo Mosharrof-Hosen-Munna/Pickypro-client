@@ -1,15 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import useAuth from "../../../Hooks/useAuth";
 
-const ReviewForm = ({service}) => {
+const ReviewForm = ({ service,serviceReviews,setServiceReviews }) => {
   const [ratingNumber, setRatingNumber] = useState(3);
   const [reviewText, setReviewText] = useState("");
 
   const { user } = useAuth();
-
-  console.log(user)
 
   // return a text if user not login
   if (!user) {
@@ -24,31 +23,41 @@ const ReviewForm = ({service}) => {
     setReviewText(e.target.value);
   };
 
-  const handleReviewSubmit = () => {
-    
-    if(!reviewText){
-        return
+  const handleReviewSubmit = (e) => {
+    if (!reviewText) {
+      return;
     }
 
     const reviewData = {
-        message: reviewText,
-        rating: ratingNumber,
-        author: {
-            name:user.displayName,
-            photoURL:user.photoURL ? user.photoURl : 'https://placeimg.com/192/192/people',
-            uid: user.uid
-        },
-        serviceId: service._id,
-        time: new Date(),
+      message: reviewText,
+      rating: ratingNumber,
+      author: {
+        name: user.displayName,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      },
+      serviceId: service._id,
+      time: new Date(),
+    };
 
-    }
+    axios
+      .post("http://localhost:5000/api/review/create", reviewData)
+      .then((res) => {
+
+        const newServiceReviews = [...serviceReviews,res.data]
+        setServiceReviews(newServiceReviews)
+
+        setReviewText('')
+        console.log(res.data)})
+      .catch((err) => console.log(err));
+    
   };
   return (
     <div>
       <h1 className="text-3xl font-semibold mt-12 mb-4">Write a Review</h1>
       <StarRatings
         rating={ratingNumber}
-        starRatedColor="blue"
+        starRatedColor="purple"
         changeRating={(newRating) => setRatingNumber(newRating)}
         numberOfStars={5}
         name="rating"
@@ -64,7 +73,7 @@ const ReviewForm = ({service}) => {
           ></textarea>
         </div>
         <div className="flex justify-end">
-          <button onClick={handleReviewSubmit} className="btn btn-primary">
+          <button onClick={handleReviewSubmit} className="btn bg-purple-700">
             Submit Review
           </button>
         </div>

@@ -9,6 +9,7 @@ const Login = () => {
   const {handleEmailPasswordLogin,
     setLoading,
     handleGoogleSignIn,
+    saveGoogleUserToDatabase,
     handleGithubSignIn,} = useAuth()
 
     const location = useLocation();
@@ -44,6 +45,13 @@ const Login = () => {
     setLoading(true);
     handleGoogleSignIn()
       .then((result) => {
+        const newUser = {
+          name: result.user.displayName,
+          email: result.user.email,
+          uid: result.user.uid,
+          photoUrl: result.user.photoURL,
+        };
+        saveGoogleUserToDatabase(newUser);
         navigate(from, { replace: true });
       })
       .catch((error) => console.log(error.message))
@@ -54,6 +62,13 @@ const Login = () => {
     setLoading(true);
     handleGithubSignIn()
       .then((result) => {
+        const newUser = {
+          name: result.user.displayName,
+          email: result.user.email,
+          uid: result.user.uid,
+          photoUrl: result.user.photoURL,
+        };
+        saveGoogleUserToDatabase(newUser);
         navigate(from, { replace: true });
       })
       .finally(() => setLoading(false));

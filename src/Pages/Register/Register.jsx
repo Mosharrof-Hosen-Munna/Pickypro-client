@@ -13,6 +13,8 @@ const Register = () => {
         setLoading,
         user,
         handleGithubSignIn,
+        saveUserToDatabase,
+        saveGoogleUserToDatabase
       } = useAuth();
 
 
@@ -62,8 +64,16 @@ const Register = () => {
       .then((result) => {
         setUserName(registerData?.name,registerData?.photoURL);
         const LoginUser = result.user;
+
+        const newUser = {
+          name: registerData?.name,
+          email: result.user.email,
+          uid: result.user.uid,
+          photoUrl: result.user.photoURL,
+        };
+
+        saveUserToDatabase(newUser)
         setUser(LoginUser);
-        // emailVerification();
         console.log(user);
         navigate(from, { replace: true });
         setError({});
@@ -79,6 +89,13 @@ const Register = () => {
     setLoading(true);
     handleGoogleSignIn()
       .then((result) => {
+        const newUser = {
+          name: result.user.displayName,
+          email: result.user.email,
+          uid: result.user.uid,
+          photoUrl: result.user.photoURL,
+        };
+        saveGoogleUserToDatabase(newUser);
         navigate(from, { replace: true });
       })
       .catch((error) => console.log(error.message))
@@ -90,6 +107,13 @@ const Register = () => {
     setLoading(true);
     handleGithubSignIn()
       .then((result) => {
+        const newUser = {
+          name: result.user.displayName,
+          email: result.user.email,
+          uid: result.user.uid,
+          photoUrl: result.user.photoURL,
+        };
+        saveGoogleUserToDatabase(newUser);
         navigate(from, { replace: true });
       })
       .finally(() => setLoading(false));
@@ -118,7 +142,7 @@ const Register = () => {
               </div>
               <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Your Photo Url (optional)</span>
+                    <span className="label-text">Your Photo Url </span>
                   </label>
                   <input
                     name="photoURL"
@@ -126,7 +150,7 @@ const Register = () => {
                     type="text"
                     placeholder="Paste your photo url"
                     className="input input-bordered"
-                    
+                    required
                   />
                  
                 </div>

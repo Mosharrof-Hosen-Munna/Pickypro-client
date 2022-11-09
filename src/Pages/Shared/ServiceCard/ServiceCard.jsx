@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
+import StarRatings from "react-star-ratings";
+
 
 const ServiceCard = () => {
+  const [ratingNumber,setRatingNumber] = useState(3.5)
   return (
     <div className="card rounded-sm shadow-lg shadow-slate-200">
       <div>
@@ -23,6 +26,18 @@ const ServiceCard = () => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas modi
           tempore, explicabo optio quia illo?
         </p>
+        <div className="text-end">
+          (4){' '}
+        <StarRatings
+              rating={ratingNumber}
+              starRatedColor="purple"
+              starDimension="20px"
+        starSpacing="1px"
+              numberOfStars={5}
+              name="rating"
+            />
+        </div>
+            
         <hr />
         <div className="flex justify-between font-semibold text-lg mt-4 mb-auto">
           <div className="text-xl font-bold text-purple-700"> 50$</div>

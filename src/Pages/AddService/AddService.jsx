@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 const AddService = () => {
 
     const [serviceData,setServiceData] = useState({})
 
-    const handleChange = ()=>{
-        
+    const handleChange = (e)=>{
+        const field = e.target.name;
+      const value = e.target.value;
+      const newServiceData= { ...serviceData };
+      newServiceData[field] = value;
+      setServiceData(newServiceData);
+    }
+
+    const handleSubmit = (e)=>{
+        e.preventDefault()
     }
 
 
@@ -21,7 +29,7 @@ const AddService = () => {
             <h1 className="text-4xl text-center text-purple-700 font-semibold my-6">
               New Service
             </h1>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-semibold text-lg">
@@ -30,7 +38,7 @@ const AddService = () => {
                 </label>
                 <input
                   name="title"
-                  // onChange={handleOnChange}
+                  onChange={handleChange}
                   type="text"
                   placeholder="Enter a title"
                   className="input input-bordered"
@@ -44,7 +52,7 @@ const AddService = () => {
                 </label>
                 <input
                   name="image"
-                  // onChange={handleOnChange}
+                  onChange={handleChange}
                   type="text"
                   placeholder="Enter a service image"
                   className="input input-bordered"
@@ -53,12 +61,12 @@ const AddService = () => {
               <div className="form-control my-2">
                 <label className="label">
                   <span className="label-text font-semibold text-lg">
-                    Service Price
+                    Service Price ($)
                   </span>
                 </label>
                 <input
                   name="price"
-                  // onChange={handleOnChange}
+                  onChange={handleChange}
                   type="number"
                   placeholder="Enter price"
                   className="input input-bordered"
@@ -72,7 +80,7 @@ const AddService = () => {
                 </label>
                 <input
                   name="ratings"
-                  // onChange={handleOnChange}
+                  onChange={handleChange}
                   type="number"
                   placeholder="Enter price"
                   className="input input-bordered"
@@ -85,15 +93,15 @@ const AddService = () => {
                   </span>
                 </label>
                 <textarea
-                  name="descrition"
-                  // onChange={handleOnChange}
-                  rows={8}
+                  name="description"
+                  onChange={handleChange}
+                  rows={6}
                   placeholder="Enter a long description"
                   className="textarea input-bordered"
                 />
               </div>
               <div className="text-center my-6">
-                <button className="btn bg-purple-700 btn-lg ">
+                <button type="submit" className="btn bg-purple-700 btn-lg ">
                   Submit Service
                 </button>
               </div>

@@ -3,12 +3,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import useAuth from "../../../Hooks/useAuth";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ReviewForm = ({ service,serviceReviews,setServiceReviews }) => {
   const [ratingNumber, setRatingNumber] = useState(3);
   const [reviewText, setReviewText] = useState("");
 
   const { user } = useAuth();
+
+  const notify = () => toast("Review successfully submitted!");
 
   // return a text if user not login
   if (!user) {
@@ -43,7 +47,7 @@ const ReviewForm = ({ service,serviceReviews,setServiceReviews }) => {
     axios
       .post("http://localhost:5000/api/review/create", reviewData)
       .then((res) => {
-
+        notify()
         const newServiceReviews = [...serviceReviews,res.data]
         setServiceReviews(newServiceReviews)
 
@@ -55,6 +59,7 @@ const ReviewForm = ({ service,serviceReviews,setServiceReviews }) => {
   return (
     <div>
       <h1 className="text-3xl font-semibold mt-12 mb-4">Write a Review</h1>
+      <ToastContainer position="bottom-left"/>
       <StarRatings
         rating={ratingNumber}
         starRatedColor="purple"
@@ -62,7 +67,7 @@ const ReviewForm = ({ service,serviceReviews,setServiceReviews }) => {
         numberOfStars={5}
         name="rating"
       />
-      <div>
+      <div >
         <div className="w-full my-4">
           <textarea
             className="textarea w-full shadow"

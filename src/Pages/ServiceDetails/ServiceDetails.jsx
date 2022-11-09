@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 import ReviewCard from "./ReviewCard/ReviewCard";
 import ReviewForm from "./ReviewForm/ReviewForm";
 import SimilarServiceCard from "./SimilarServiceCard/SimilarServiceCard";
@@ -15,7 +15,7 @@ const ServiceDetails = () => {
   const { image, price, description, title, ratings } = service;
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
 
     setServiceReviews(reviews);
 
@@ -32,13 +32,21 @@ const ServiceDetails = () => {
       <div className="container mx-auto">
         <div className="md:flex">
           <div className="md:w-2/3 mr-6">
-            <div>
-              <img className="w-full" src={image} alt="" />
-            </div>
+          <PhotoProvider>
+          <PhotoView src={image}>
+            <img
+              className="  w-full"
+              src={image}
+              alt="img"
+            />
+          </PhotoView>
+        </PhotoProvider>
             <div className="flex justify-between items-center">
-              <h1 className="text-4xl text-purple-700 font-semibold my-4">
+              <h1 className="text-4xl text-purple-700 font-semibold my-8">
                 {title}
               </h1>
+                <div>
+                <h1 className="text-3xl text-purple-700 font-semibold">Price: ${price}</h1>
               <div className="flex items-center">
                 <span className="text-xl font-semibold">Ratings: </span>
                 <StarRatings
@@ -50,6 +58,7 @@ const ServiceDetails = () => {
                   name="rating"
                 />
                 ({ratings})
+                </div>
               </div>
             </div>
             <div className="mt-4">

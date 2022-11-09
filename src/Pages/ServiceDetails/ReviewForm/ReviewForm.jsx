@@ -70,7 +70,7 @@ const ReviewForm = ({ service,serviceReviews,setServiceReviews }) => {
       <div >
         <div className="w-full my-4">
           <textarea
-            className="textarea w-full shadow"
+            className="textarea text-lg w-full shadow"
             rows={8}
             placeholder="Don't be Shy! write your own oponion..."
             value={reviewText}

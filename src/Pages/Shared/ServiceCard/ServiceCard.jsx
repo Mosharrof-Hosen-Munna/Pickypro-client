@@ -25,7 +25,7 @@ const ServiceCard = ({service}) => {
         <p>
           {description.slice(0,100)}...
         </p>
-        <div className="text-end">
+        <div className="text-end flex items-center justify-end">
           ({ratings}){' '}
         <StarRatings
               rating={parseInt(ratings)}
@@ -39,7 +39,7 @@ const ServiceCard = ({service}) => {
             
         <hr />
         <div className="flex justify-between font-semibold text-lg mt-4 mb-auto">
-          <div className="text-xl font-bold text-purple-700"> {price}$</div>
+          <div className="text-2xl font-bold text-purple-700"> ${price}</div>
           <Link to={`/service/details/${_id}`}>
             <div className="flex items-center hover:text-purple-700 duration-300">
               Know Details

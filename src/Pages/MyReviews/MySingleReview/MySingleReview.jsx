@@ -1,15 +1,21 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
+import Moment from 'react-moment';
 import SimilarServiceCard from "../../ServiceDetails/SimilarServiceCard/SimilarServiceCard";
 import StarRatings from "react-star-ratings";
+import axios from "axios";
 
-const MySingleReview = () => {
+const MySingleReview = ({review}) => {
   const [show, setShow] = useState(false);
-  const [ratingNumber, setRatingNumber] = useState(3.3);
-  const [reviewComment, setReviewComment] = useState(
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciuntp architecto dignissimos quam vel ipsa aspernatur doloribus laudantium"
-  );
+  const [ratingNumber, setRatingNumber] = useState(review.rating);
+  const [service,setService] = useState({})  
+  const [reviewMessage, setReviewMessage] = useState('');
+
+  useEffect(()=>{
+    setReviewMessage(review.message)
+    axios.get(`http://localhost:5000/api/service/${review.serviceId}`)
+    .then(res=>setService(res.data.service))
+    .catch(err=>console.log(err))
+  },[])
 
   const handleSaveReview=()=>{
     setShow(false)
@@ -19,19 +25,19 @@ const MySingleReview = () => {
     <div className="flex items-start  bg-white shadow-lg rounded-lg shadow-slate-200 p-4 my-8">
       <div className="avatar">
         <div className="w-14 rounded-full">
-          <img src="https://preview.moxcreative.com/amerta/wp-content/uploads/sites/5/2022/02/confident-photographer-.jpg" />
+          <img src={review.author.photoURL} />
         </div>
       </div>
       <div className="ml-8 w-full">
         <div className="flex items-center justify-between">
-          <div className="mb-4">
-            <h3 className="text-xl font-bold">Mosharrof Hosen Munna</h3>
-            <p>january</p>
+          <div className="mb-2">
+            <h3 className="text-xl font-bold">{review.author.name}</h3>
+            <Moment fromNow>{new Date(review.time)}</Moment>
           </div>
           <div className="flex items-center text-rose-600">
             <div>
               <StarRatings
-                rating={ratingNumber}
+                rating={review.rating}
                 starRatedColor="purple"
                 starDimension="20px"
                 starSpacing="1px"
@@ -39,7 +45,7 @@ const MySingleReview = () => {
                 name="rating"
               />
             </div>
-            <div className="ml-1">(4.8)</div>
+            <div className="ml-1">({review.rating})</div>
           </div>
           <div className="flex">
             <div className="text-lg py-1 px-2 bg-slate-200 rounded-lg font-bold text-red-600 cursor-pointer">
@@ -67,8 +73,8 @@ const MySingleReview = () => {
                 <textarea
                   className="textarea w-full shadow"
                   rows={4}
-                  value={reviewComment}
-                  onChange={(e) => setReviewComment(e.target.value)}
+                  value={reviewMessage}
+                  onChange={(e) => setReviewMessage(e.target.value)}
                   placeholder="Don't be Shy! write your own oponion..."
                 ></textarea>
               </div>
@@ -80,23 +86,18 @@ const MySingleReview = () => {
         )}
         {!show && (
           <div>
-            <p className="">
-              {reviewComment}
+            <p className=" text-lg mb-6 px-3 py-2 bg-slate-200 rounded-md">
+              {reviewMessage}
             </p>
           </div>
         )}
         <div className="mt-2">
-          <h1 className="text-xl font-semibold">
-            For <span className="text-purple-700">Video Shooting</span> service
+          <h1 className="text-2xl font-semibold">
+            For <span className="text-purple-700">{service.title}</span> service
           </h1>
-          <SimilarServiceCard>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
-            molestias fuga praesentium eaque beatae odit pariatur, repellendus,
-            minus animi ut necessitatibus debitis natus? Cum iure consequatur
-            excepturi sit voluptatem error voluptate quasi ipsum laudantium,
-            perferendis eum beatae iste tempore optio, eius expedita fuga.
-            Temporibus cum deleniti, ducimus nam pariatur reiciendis.
-          </SimilarServiceCard>
+          {service.description&&<SimilarServiceCard isShow={true} service={service}>
+          {service.description.slice(0,300)} ...
+          </SimilarServiceCard>}
         </div>
       </div>
     </div>

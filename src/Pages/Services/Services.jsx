@@ -11,7 +11,7 @@ const Services = () => {
   }, [])
 
   return (
-    <section className="py-12">
+    <section className="py-12 px-4">
       <div className="container mx-auto">
         <div className="text-start">
           <h2 className="text-purple-700 italic text-2xl mb-4 font-semibold">

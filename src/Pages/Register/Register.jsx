@@ -120,7 +120,7 @@ const Register = () => {
   };
   return (
     <div>
-    <div className=" min-h-screen bg-slate-100">
+    <div className=" min-h-screen px-4 bg-slate-100">
       <div className="container mx-auto">
         <div className="flex items-center justify-center min-h-screen">
         <div className="card md:-mt-12 md:w-1/3 shadow-xl bg-base-100">

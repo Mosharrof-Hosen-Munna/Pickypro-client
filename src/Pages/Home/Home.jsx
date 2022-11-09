@@ -15,7 +15,7 @@ const Home = () => {
   }, [])
 
   return (
-    <div className='mb-12'>
+    <div className='mb-12 px-4'>
         <Topbanner/>
        <MyOffer services={services}/>
        <WhyChooseMe/>

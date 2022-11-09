@@ -1,8 +1,11 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import Moment from 'react-moment';
+import useAuth from "../../../Hooks/useAuth";
 const ReviewCard = ({ review,handleReviewDelete }) => {
   const {author, message,rating,time,_id} = review
+
+  const {user } = useAuth()
 
   return (
     <div className="flex items-start bg-white shadow-lg rounded-lg shadow-slate-200 p-4 my-4">
@@ -28,9 +31,9 @@ const ReviewCard = ({ review,handleReviewDelete }) => {
             />
                 ({rating})
           </div>
-          <div onClick={()=>handleReviewDelete(review._id)} className="text-lg px-2 py-1 bg-slate-200 rounded-md font-bold text-red-600 cursor-pointer">
+          {user.uid === author.uid && <div onClick={()=>handleReviewDelete(review._id)} className="text-lg px-2 py-1 bg-slate-200 rounded-md font-bold text-red-600 cursor-pointer">
             Delete
-          </div>
+          </div>}
         </div>
         <p className=" text-lg mb-6 px-3 py-2 bg-slate-200 rounded-md">{message}</p>
       </div>

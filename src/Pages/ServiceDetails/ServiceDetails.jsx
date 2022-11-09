@@ -39,7 +39,7 @@ const ServiceDetails = () => {
 
 
   return (
-    <section className="py-12">
+    <section className="py-12 px-4">
       <div className="container mx-auto">
         <div className="md:flex">
           <div className="md:w-2/3 mr-6">

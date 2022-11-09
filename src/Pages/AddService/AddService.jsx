@@ -1,39 +1,43 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddService = () => {
+  const [serviceData, setServiceData] = useState({});
+  
+  const notify = () => toast("Service successfully Added!");
+  useEffect(() => {
+    document.title = "Add a New Service";
+  }, []);
 
-    const [serviceData,setServiceData] = useState({})
-    useEffect(()=>{
-      document.title= 'Add a New Service'
-    },[])
+  const handleChange = (e) => {
+    const field = e.target.name;
+    const value = e.target.value;
+    const newServiceData = { ...serviceData };
+    newServiceData[field] = value;
+    setServiceData(newServiceData);
+  };
 
-    const handleChange = (e)=>{
-        const field = e.target.name;
-      const value = e.target.value;
-      const newServiceData= { ...serviceData };
-      newServiceData[field] = value;
-      setServiceData(newServiceData);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (serviceData.ratings < 0 || serviceData.ratings > 5) {
+      return alert("Please Provide ratings between 0 to 5");
     }
 
-    const handleSubmit = (e)=>{
-        e.preventDefault()
-
-        if(serviceData.ratings <0 || serviceData.ratings >5){
-        return  alert("Please Provide ratings between 0 to 5")
-        }
-
-        axios.post('http://localhost:5000/api/service/create',serviceData)
-        .then(res=>{
-         e.target.reset()
-        })
-        .catch(err=>console.log(err))
-
-    }
-
+    axios
+      .post("http://localhost:5000/api/service/create", serviceData)
+      .then((res) => {
+        notify()
+        e.target.reset();
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <section className="py-12 bg-slate-50">
+    <section className="py-12 px-4 bg-slate-50">
+      <ToastContainer position="bottom-left" />
       <div className="container mx-auto">
         <div className="mb-8">
           <h1 className="text-4xl font-semibold">Add a New Service</h1>

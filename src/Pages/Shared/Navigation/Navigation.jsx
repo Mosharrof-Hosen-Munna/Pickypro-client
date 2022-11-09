@@ -29,7 +29,7 @@ const Navigation = () => {
                 <Link to="/my-reviews">My Reviews</Link>
               </li></>}
               <li>
-                <Link to="/home">Blog</Link>
+                <Link to="/blog">Blog</Link>
               </li>
             </ul>
           </div>

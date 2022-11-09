@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios'
 
 const AddService = () => {
 
     const [serviceData,setServiceData] = useState({})
+    useEffect(()=>{
+      document.title= 'Add a New Service'
+    },[])
 
     const handleChange = (e)=>{
         const field = e.target.name;

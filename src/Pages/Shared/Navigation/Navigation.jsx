@@ -21,12 +21,13 @@ const Navigation = () => {
               <li>
                 <Link to="/services">Services</Link>
               </li>
-              <li>
+              {user&&<>
+                <li>
                 <Link to="/add-new-service">Add Service</Link>
               </li>
               <li>
                 <Link to="/my-reviews">My Reviews</Link>
-              </li>
+              </li></>}
               <li>
                 <Link to="/home">Blog</Link>
               </li>
@@ -53,7 +54,7 @@ const Navigation = () => {
               user&&<div className="flex items center">
               <div
               onClick={logOut}
-                  className="bg-purple-700 py-3 px-6 mx-2 rounded-full text-white"
+                  className="bg-purple-700 cursor-pointer py-3 px-6 mx-2 rounded-full text-white"
                 >
                   Logout
                 </div>

@@ -7,6 +7,7 @@ const Services = () => {
   const services = useLoaderData()
   useEffect(() => {
     window.scrollTo(0, 0)
+    document.title= 'Services | Making Precious Moments of Wedding.'
   }, [])
 
   return (

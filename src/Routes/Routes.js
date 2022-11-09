@@ -9,6 +9,7 @@ import NotFound from "../Pages/NotFound/NotFound";
 import Register from "../Pages/Register/Register";
 import ServiceDetails from "../Pages/ServiceDetails/ServiceDetails";
 import Services from "../Pages/Services/Services";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -48,11 +49,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/my-reviews",
-        element: <MyReviews />,
+        element: <PrivateRoute><MyReviews /></PrivateRoute>,
       },
       {
         path: "/add-new-service",
-        element: <AddService />,
+        element: <PrivateRoute><AddService /></PrivateRoute>,
       },
       {
         path: "/login",

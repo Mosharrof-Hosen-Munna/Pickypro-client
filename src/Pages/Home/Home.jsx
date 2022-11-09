@@ -11,6 +11,7 @@ const Home = () => {
   const services = useLoaderData()
   useEffect(() => {
     window.scrollTo(0, 0)
+    document.title= 'PickyPro | A professional photography service provider'
   }, [])
 
   return (

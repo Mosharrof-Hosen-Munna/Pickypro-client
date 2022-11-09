@@ -1,7 +1,7 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import Moment from 'react-moment';
-const ReviewCard = ({ review }) => {
+const ReviewCard = ({ review,handleReviewDelete }) => {
   const {author, message,rating,time,_id} = review
 
   return (
@@ -28,7 +28,7 @@ const ReviewCard = ({ review }) => {
             />
                 ({rating})
           </div>
-          <div className="text-lg font-bold text-red-600 cursor-pointer">
+          <div onClick={()=>handleReviewDelete(review._id)} className="text-lg px-2 py-1 bg-slate-200 rounded-md font-bold text-red-600 cursor-pointer">
             Delete
           </div>
         </div>

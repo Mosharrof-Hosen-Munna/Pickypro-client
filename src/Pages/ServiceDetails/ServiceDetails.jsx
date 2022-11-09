@@ -15,8 +15,8 @@ const ServiceDetails = () => {
   const { image, price, description, title, ratings } = service;
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
-
+    window.scrollTo(0, 0);
+    document.title = service.title + ' Service Details'
     setServiceReviews(reviews);
 
     axios
@@ -25,7 +25,18 @@ const ServiceDetails = () => {
       .catch((err) => console.log(err));
   }, [service._id]);
 
-  console.log(serviceReviews);
+  const handleReviewDelete = (id)=>{
+    axios.delete(`http://localhost:5000/api/review/delete/${id}`)
+    .then(res=>{
+      if(res.data.deletedCount ===1){
+        const oldReviews = [...serviceReviews]
+        const newReviews = oldReviews.filter(review=>review._id !== id)
+        setServiceReviews(newReviews)
+      }
+    })
+    .catch(err=>console.log(err))
+  }
+
 
   return (
     <section className="py-12">
@@ -65,13 +76,13 @@ const ServiceDetails = () => {
               <h1 className="leading-loose text-lg">
                 <span className="text-xl font-semibold">
                   Service Descriptions:
-                </span>{" "}
-                {description.slice(0, 400)}{" "}
-              </h1>{" "}
+                </span>
+                {description.slice(0, 400)}
+              </h1>
               <br /> <br />
               <h1 className="leading-loose text-lg">
-                {" "}
-                {description.slice(400)}{" "}
+                
+                {description.slice(400)}
               </h1>
             </div>
             {
@@ -84,7 +95,7 @@ const ServiceDetails = () => {
                 <h1 className="text-3xl font-semibold">All Reviews:</h1>
 
                 {serviceReviews.map((review) => (
-                  <ReviewCard review={review} />
+                  <ReviewCard handleReviewDelete={handleReviewDelete} review={review} />
                 ))}
               </div>
             )}

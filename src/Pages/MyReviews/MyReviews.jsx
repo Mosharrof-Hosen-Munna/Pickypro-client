@@ -9,6 +9,9 @@ const MyReviews = () => {
   const {user} = useAuth()
 
   useEffect(()=>{
+    window.scrollTo(0, 0);
+    document.title = 'My reviews | PickyPro Photography'
+
     fetch(`http://localhost:5000/api/reviews/user/${user?.uid}`)
     .then(res=>res.json())
     .then(data=>{

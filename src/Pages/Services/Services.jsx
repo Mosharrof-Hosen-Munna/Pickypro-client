@@ -11,7 +11,7 @@ const Services = () => {
     window.scrollTo(0, 0)
     document.title= 'Services | Making Precious Moments of Wedding.'
 
-    axios.get('http://localhost:5000/api/services')
+    axios.get('https://pickypro-server.vercel.app/api/services')
     .then(res=>{
       setServices(res.data)
       setIsLoading(false)})

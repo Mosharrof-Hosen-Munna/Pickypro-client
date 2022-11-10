@@ -14,7 +14,7 @@ const MySingleReview = ({ review,index, handleReviewDelete ,handleReviewUpdate})
   useEffect(() => {
     setReviewMessage(review.message);
     axios
-      .get(`http://localhost:5000/api/service/${review.serviceId}`)
+      .get(`https://pickypro-server.vercel.app/api/service/${review.serviceId}`)
       .then((res) => setService(res.data.service))
       .catch((err) => console.log(err));
   }, []); 
@@ -27,7 +27,7 @@ const MySingleReview = ({ review,index, handleReviewDelete ,handleReviewUpdate})
   const handleSaveReview = () => {
 
     axios
-      .put(`http://localhost:5000/api/review/update/${review._id}`, {
+      .put(`https://pickypro-server.vercel.app/api/review/update/${review._id}`, {
         rating: ratingNumber,
         message: reviewMessage,
         time:new Date()

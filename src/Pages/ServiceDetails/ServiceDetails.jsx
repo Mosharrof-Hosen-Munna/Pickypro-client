@@ -24,7 +24,7 @@ const ServiceDetails = () => {
     setServiceReviews(reviews);
     setIsLoading(true)
     axios
-      .get("http://localhost:5000/api/services")
+      .get("https://pickypro-server.vercel.app/api/services")
       .then((res) => {
         setIsLoading(false)
         setSimilarService(res.data)})
@@ -32,7 +32,7 @@ const ServiceDetails = () => {
   }, [service._id]);
 
   const handleReviewDelete = (id)=>{
-    axios.delete(`http://localhost:5000/api/review/delete/${id}`)
+    axios.delete(`https://pickypro-server.vercel.app/api/review/delete/${id}`)
     .then(res=>{
       if(res.data.deletedCount ===1){
         const oldReviews = [...serviceReviews]

@@ -19,7 +19,7 @@ const MyReviews = () => {
     window.scrollTo(0, 0);
     document.title = 'My reviews | PickyPro Photography'
     setIsLoading(true)
-    fetch(`http://localhost:5000/api/reviews/user/${user?.uid}`, {
+    fetch(`https://pickypro-server.vercel.app/api/reviews/user/${user?.uid}`, {
       headers:{
         authorization: `Bearer ${localStorage.getItem("token")}`,
       }
@@ -39,7 +39,7 @@ const MyReviews = () => {
   },[user])
 
   const handleReviewDelete = (reviewId)=>{
-    axios.delete(`http://localhost:5000/api/review/delete/${reviewId}`)
+    axios.delete(`https://pickypro-server.vercel.app/api/review/delete/${reviewId}`)
     .then(res=>{
       if(res.data.deletedCount ===1){
         notify()

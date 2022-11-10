@@ -75,7 +75,7 @@ const Register = () => {
         };
         // get jwt token
         await axios
-        .post("http://localhost:5000/api/jwt", newUser)
+        .post("https://pickypro-server.vercel.app/api/jwt", newUser)
         .then((res) => {
           localStorage.setItem("token", res.data.token);
         })
@@ -106,7 +106,7 @@ const Register = () => {
         };
         // get jwt token
         await axios
-        .post("http://localhost:5000/api/jwt", newUser)
+        .post("https://pickypro-server.vercel.app/api/jwt", newUser)
         .then((res) => {
           localStorage.setItem("token", res.data.token);
         })
@@ -131,7 +131,7 @@ const Register = () => {
         };
         // get jwt token
         await axios
-        .post("http://localhost:5000/api/jwt", newUser)
+        .post("https://pickypro-server.vercel.app/api/jwt", newUser)
         .then((res) => {
           localStorage.setItem("token", res.data.token);
         })

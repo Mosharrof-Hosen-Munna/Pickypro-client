@@ -23,14 +23,14 @@ const routes = createBrowserRouter([
         path: "/",
         element: <Home />,
         loader: async()=>{
-          return fetch('http://localhost:5000/api/services/limit')
+          return fetch('https://pickypro-server.vercel.app/api/services/limit')
         }
       },
       {
         path: "/home",
         element: <Home />,
         loader: async()=>{
-          return fetch('http://localhost:5000/api/services/limit')
+          return fetch('https://pickypro-server.vercel.app/api/services/limit')
         }
       },
       {
@@ -42,7 +42,7 @@ const routes = createBrowserRouter([
         path: "/service/details/:serviceId",
         element: <ServiceDetails />,
         loader: async({params})=>{
-          return fetch(`http://localhost:5000/api/service/${params.serviceId}`)
+          return fetch(`https://pickypro-server.vercel.app/api/service/${params.serviceId}`)
         }
       },
       {

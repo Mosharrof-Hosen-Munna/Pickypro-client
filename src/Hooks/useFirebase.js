@@ -48,7 +48,7 @@ const useFirebase = () => {
   };
 
   const saveGoogleUserToDatabase = (user) => {
-    const url = `http://localhost:5000/api/user/create`;
+    const url = `https://pickypro-server.vercel.app/api/user/create`;
     axios
       .put(url, user)
       .then((res) => {})
@@ -56,7 +56,7 @@ const useFirebase = () => {
   };
 
   const saveUserToDatabase = (user) => {
-    const url = `http://localhost:5000/api/user/create`;
+    const url = `https://pickypro-server.vercel.app/api/user/create`;
     axios
       .post(url, user)
       .then((res) => {})

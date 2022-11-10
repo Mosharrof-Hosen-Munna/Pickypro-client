@@ -39,9 +39,9 @@ const ServiceCard = ({service}) => {
             
         <hr />
         <div className="flex justify-between font-semibold text-lg mt-4 mb-auto">
-          <div className="text-2xl font-bold text-purple-700"> ${price}</div>
+          <div className="text-3xl font-bold text-purple-700"> ${price}</div>
           <Link to={`/service/details/${_id}`}>
-            <div className="flex items-center hover:text-purple-700 duration-300">
+            <div className="flex px-3 py-1 bg-slate-100 rounded-md shadow-sm items-center hover:text-purple-700 duration-300">
               Know Details
             </div>
           </Link>

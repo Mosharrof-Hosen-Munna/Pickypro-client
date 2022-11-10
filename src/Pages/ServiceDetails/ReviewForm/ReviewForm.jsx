@@ -45,7 +45,7 @@ const ReviewForm = ({ service,serviceReviews,setServiceReviews }) => {
     };
 
     axios
-      .post("http://localhost:5000/api/review/create", reviewData, {
+      .post("https://pickypro-server.vercel.app/api/review/create", reviewData, {
         headers:{
           authorization: `Bearer ${localStorage.getItem("token")}`,
         }

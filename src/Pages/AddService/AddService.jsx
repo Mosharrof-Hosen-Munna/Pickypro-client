@@ -30,7 +30,7 @@ const AddService = () => {
     console.log(newServiceData)
 
     axios
-      .post("http://localhost:5000/api/service/create", {...serviceData,date:new Date()})
+      .post("https://pickypro-server.vercel.app/api/service/create", {...serviceData,date:new Date()})
       .then((res) => {
         notify()
         e.target.reset();

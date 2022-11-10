@@ -26,8 +26,11 @@ const AddService = () => {
       return alert("Please Provide ratings between 0 to 5");
     }
 
+    const newServiceData = {...serviceData}
+    console.log(newServiceData)
+
     axios
-      .post("http://localhost:5000/api/service/create", serviceData)
+      .post("http://localhost:5000/api/service/create", {...serviceData,date:new Date()})
       .then((res) => {
         notify()
         e.target.reset();

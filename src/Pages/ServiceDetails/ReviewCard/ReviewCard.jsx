@@ -31,52 +31,14 @@ const ReviewCard = ({ review,handleReviewDelete }) => {
             />
                 ({rating})
           </div>
-          {user.uid === author.uid && <div onClick={()=>handleReviewDelete(review._id)} className="text-lg px-2 py-1 bg-slate-200 rounded-md font-bold text-red-600 cursor-pointer">
+          {user?.uid === author.uid && <div onClick={()=>handleReviewDelete(review._id)} className="text-lg px-2 py-1 bg-slate-200 rounded-md font-bold text-red-600 cursor-pointer">
             Delete
           </div>}
         </div>
         <p className=" text-lg mb-6 px-3 py-2 bg-slate-200 rounded-md">{message}</p>
       </div>
     </div>
-    // <div className="flex items-start bg-white shadow-lg rounded-lg shadow-slate-200 p-4 my-4">
-    //   <div className="avatar">
-    //     <div className="w-14 rounded-full">
-    //       <img src={review.profilePhoto} />
-    //     </div>
-    //   </div>
-    //   <div className="ml-8 w-full">
-    //     <div className="flex items-center justify-between">
-    //       <div className="mb-4">
-    //         <h3 className="text-lg font-bold">{review.name}</h3>
-    //         <p>{review.date}</p>
-    //       </div>
-    //       <div className="flex text-rose-600">
-    //       <FontAwesomeIcon
-    //               className=" text-purple-700 "
-    //               icon={faStar}
-    //             />
-    //             <FontAwesomeIcon
-    //               className=" text-purple-700 "
-    //               icon={faStar}
-    //             />
-    //             <FontAwesomeIcon
-    //               className=" text-purple-700 "
-    //               icon={faStar}
-    //             />
-    //             <FontAwesomeIcon
-    //               className=" text-purple-700 "
-    //               icon={faStar}
-    //             />
-    //             <FontAwesomeIcon
-    //               className=" text-purple-700 "
-    //               icon={faStar}
-    //             />
-    //             (4.8)
-    //       </div>
-    //     </div>
-    //     <p>{review.comment}</p>
-    //   </div>
-    // </div>
+    
   );
 };
 

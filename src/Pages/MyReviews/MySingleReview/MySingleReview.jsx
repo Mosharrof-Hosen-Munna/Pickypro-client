@@ -121,7 +121,7 @@ const MySingleReview = ({ review,index, handleReviewDelete ,handleReviewUpdate})
           </h1>
           {service.description && (
             <SimilarServiceCard isShow={true} service={service}>
-              {service.description.slice(0, 300)} ...
+              {service.description.slice(0, 200)} ...
             </SimilarServiceCard>
           )}
         </div>

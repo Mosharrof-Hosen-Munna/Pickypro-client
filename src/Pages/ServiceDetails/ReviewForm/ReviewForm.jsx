@@ -45,10 +45,14 @@ const ReviewForm = ({ service,serviceReviews,setServiceReviews }) => {
     };
 
     axios
-      .post("http://localhost:5000/api/review/create", reviewData)
+      .post("http://localhost:5000/api/review/create", reviewData, {
+        headers:{
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      })
       .then((res) => {
         notify()
-        const newServiceReviews = [...serviceReviews,res.data]
+        const newServiceReviews = [res.data,...serviceReviews]
         setServiceReviews(newServiceReviews)
 
         setReviewText('')

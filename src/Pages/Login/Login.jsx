@@ -8,16 +8,17 @@ const Login = () => {
   const [loginData, setLoginData] = useState({});
   const [error, setError] = useState("");
 
-  const {handleEmailPasswordLogin,
+  const {
+    handleEmailPasswordLogin,
     setLoading,
     handleGoogleSignIn,
     saveGoogleUserToDatabase,
-    handleGithubSignIn,} = useAuth()
+    handleGithubSignIn,
+  } = useAuth();
 
-    const location = useLocation();
-    const navigate = useNavigate();
-    let from = location.state?.from?.pathname || "/";
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  let from = location.state?.from?.pathname || "/";
 
   const handleOnChange = (e) => {
     const field = e.target.name;
@@ -28,46 +29,54 @@ const Login = () => {
   };
 
   const handleEmailLogin = (e) => {
-        setLoading(true);
-        e.preventDefault();
-       if(loginData.email&&loginData.password){
-        handleEmailPasswordLogin(loginData.email, loginData.password)
-        .then(async(result) => {
+    setLoading(true);
+    e.preventDefault();
+    if (loginData.email && loginData.password) {
+      handleEmailPasswordLogin(loginData.email, loginData.password)
+        .then(async (result) => {
           const newUser = {
             name: result.user.displayName,
             email: result.user.email,
             uid: result.user.uid,
             photoUrl: result.user.photoURL,
           };
-          console.log(result.user)
+          console.log(result.user);
 
           // get jwt token
-        await  axios.post('http://localhost:5000/api/jwt',newUser)
-          .then(res =>{
-            localStorage.setItem('token',res.data.token)
-          })
-          .catch(err=>console.log(err))
+          await axios
+            .post("http://localhost:5000/api/jwt", newUser)
+            .then((res) => {
+              localStorage.setItem("token", res.data.token);
+            })
+            .catch((err) => console.log(err));
 
-          // navigate(from, { replace: true });
+          navigate(from, { replace: true });
         })
         .catch((e) => {
           console.log(e);
           setError("Email or password wrong!");
         })
         .finally(() => setLoading(false));
-       }
+    }
   };
 
   const signInGoogle = () => {
     setLoading(true);
     handleGoogleSignIn()
-      .then((result) => {
+      .then(async(result) => {
         const newUser = {
           name: result.user.displayName,
           email: result.user.email,
           uid: result.user.uid,
           photoUrl: result.user.photoURL,
         };
+        // get jwt token
+        await axios
+        .post("http://localhost:5000/api/jwt", newUser)
+        .then((res) => {
+          localStorage.setItem("token", res.data.token);
+        })
+        .catch((err) => console.log(err));
         saveGoogleUserToDatabase(newUser);
         navigate(from, { replace: true });
       })
@@ -78,13 +87,20 @@ const Login = () => {
   const signInGithub = () => {
     setLoading(true);
     handleGithubSignIn()
-      .then((result) => {
+      .then(async(result) => {
         const newUser = {
           name: result.user.displayName,
           email: result.user.email,
           uid: result.user.uid,
           photoUrl: result.user.photoURL,
         };
+        // get jwt token
+        await axios
+        .post("http://localhost:5000/api/jwt", newUser)
+        .then((res) => {
+          localStorage.setItem("token", res.data.token);
+        })
+        .catch((err) => console.log(err));
         saveGoogleUserToDatabase(newUser);
         navigate(from, { replace: true });
       })
@@ -96,12 +112,12 @@ const Login = () => {
       <div className=" min-h-screen bg-slate-100">
         <div className="container mx-auto">
           <div className="flex items-center justify-center min-h-screen">
-          <div className="card md:-mt-12 md:w-1/3 shadow-xl bg-base-100">
-            <div className="card-body">
-              <form onSubmit={handleEmailLogin}>
-                <h1 className="text-3xl font-bold text-center mb-4">Login</h1>
-                {/* show error */}
-                {/* {error&&<div className="alert alert-error shadow-lg">
+            <div className="card md:-mt-12 md:w-1/3 shadow-xl bg-base-100">
+              <div className="card-body">
+                <form onSubmit={handleEmailLogin}>
+                  <h1 className="text-3xl font-bold text-center mb-4">Login</h1>
+                  {/* show error */}
+                  {/* {error&&<div className="alert alert-error shadow-lg">
                   <div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -119,65 +135,65 @@ const Login = () => {
                     <span>{error}</span>
                   </div>
                 </div>} */}
-                {/* end show alert */}
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Email</span>
+                  {/* end show alert */}
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Email</span>
+                    </label>
+                    <input
+                      name="email"
+                      onChange={handleOnChange}
+                      type="email"
+                      placeholder="email"
+                      className="input input-bordered"
+                    />
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Password</span>
+                    </label>
+                    <input
+                      name="password"
+                      onChange={handleOnChange}
+                      type="password"
+                      placeholder="password"
+                      className="input input-bordered"
+                    />
+                    <label className="label">
+                      <a href="#" className="label-text-alt link link-hover">
+                        Forgot password?
+                      </a>
+                    </label>
+                  </div>
+                  <div className="form-control mt-6">
+                    <button type="submit" className="btn bg-purple-700">
+                      Login
+                    </button>
+                  </div>
+                  <label className="label block text-center">
+                    <Link
+                      to="/register"
+                      className="label-text-alt text-center link link-hover"
+                    >
+                      Haven't any account? Please Register.
+                    </Link>
                   </label>
-                  <input
-                    name="email"
-                    onChange={handleOnChange}
-                    type="email"
-                    placeholder="email"
-                    className="input input-bordered"
-                  />
-                </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Password</span>
-                  </label>
-                  <input
-                    name="password"
-                    onChange={handleOnChange}
-                    type="password"
-                    placeholder="password"
-                    className="input input-bordered"
-                  />
-                  <label className="label">
-                    <a href="#" className="label-text-alt link link-hover">
-                      Forgot password?
-                    </a>
-                  </label>
-                </div>
-                <div className="form-control mt-6">
-                  <button type="submit" className="btn bg-purple-700">
-                    Login
+                </form>
+                <div className="form-control mt-2">
+                  <button
+                    onClick={signInGoogle}
+                    className="btn shadow-md btn-ghost"
+                  >
+                    Login with Google
                   </button>
                 </div>
-                <label className="label block text-center">
-                  <Link
-                    to="/register"
-                    className="label-text-alt text-center link link-hover"
-                  >
-                    Haven't any account? Please Register.
-                  </Link>
-                </label>
-              </form>
-              <div className="form-control mt-2">
-                <button
-                  onClick={signInGoogle}
-                  className="btn shadow-md btn-ghost"
-                >
-                  Login with Google
-                </button>
-              </div>
-              <div className="form-control mt-2">
-                <button onClick={signInGithub} className="btn shadow-md ">
-                  Login with Github
-                </button>
+                <div className="form-control mt-2">
+                  <button onClick={signInGithub} className="btn shadow-md ">
+                    Login with Github
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
           </div>
         </div>
       </div>

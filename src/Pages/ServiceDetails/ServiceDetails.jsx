@@ -115,7 +115,7 @@ const ServiceDetails = () => {
               <div className="mt-12">
                 <h1 className="text-3xl font-semibold">All Reviews:</h1>
 
-                {serviceReviews.map((review) => (
+                { serviceReviews.map((review) => (
                   <ReviewCard handleReviewDelete={handleReviewDelete} review={review} />
                 ))}
               </div>

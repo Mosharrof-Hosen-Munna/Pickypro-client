@@ -13,14 +13,25 @@ const MyReviews = () => {
 
   
   const notify = () => toast("Review successfully deleted");
-  const {user} = useAuth()
+  const {user,logOut} = useAuth()
 
   useEffect(()=>{
     window.scrollTo(0, 0);
     document.title = 'My reviews | PickyPro Photography'
     setIsLoading(true)
-    fetch(`http://localhost:5000/api/reviews/user/${user?.uid}`)
-    .then(res=>res.json())
+    fetch(`http://localhost:5000/api/reviews/user/${user?.uid}`, {
+      headers:{
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      }
+    })
+    .then(res=>{
+
+      if(res.status ===401 || res.status === 403){
+        logOut()
+      }
+
+    return  res.json()
+    })
     .then(data=>{
       setIsLoading(false)
       setReviews(data)})
@@ -75,7 +86,7 @@ const MyReviews = () => {
                 <h1 className='text-4xl font-semibold'>My All Reviews</h1>
                 <div className="w-1/12 p-1 bg-purple-700 mt-3"></div>
             </div>
-            <div className='mt-4 w-3/4 mx-auto'>
+            <div className='mt-4 w-2/3 mx-auto'>
                {
                 reviews.map((review,index)=><MySingleReview handleReviewUpdate={handleReviewUpdate} index={index} handleReviewDelete={handleReviewDelete} review={review}/>)
                }

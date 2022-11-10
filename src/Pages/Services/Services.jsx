@@ -49,7 +49,7 @@ const Services = () => {
           <div className="w-1/12 p-1 bg-purple-700 mt-3"></div>
         </div>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-12">
-            {services.map(service=><ServiceCard service={service}/>)}
+             {  services.map(service=><ServiceCard service={service}/>)}
         </div>
       </div>
     </section>

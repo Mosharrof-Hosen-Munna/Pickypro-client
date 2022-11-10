@@ -1,3 +1,5 @@
+import { async } from '@firebase/util';
+import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
@@ -61,7 +63,7 @@ const Register = () => {
       registerData?.password,
       registerData?.name
     )
-      .then((result) => {
+      .then(async(result) => {
         setUserName(registerData?.name,registerData?.photoURL);
         const LoginUser = result.user;
 
@@ -71,6 +73,13 @@ const Register = () => {
           uid: result.user.uid,
           photoUrl: result.user.photoURL,
         };
+        // get jwt token
+        await axios
+        .post("http://localhost:5000/api/jwt", newUser)
+        .then((res) => {
+          localStorage.setItem("token", res.data.token);
+        })
+        .catch((err) => console.log(err));
 
         saveUserToDatabase(newUser)
         setUser(LoginUser);
@@ -88,13 +97,20 @@ const Register = () => {
   const signInGoogle = () => {
     setLoading(true);
     handleGoogleSignIn()
-      .then((result) => {
+      .then(async(result) => {
         const newUser = {
           name: result.user.displayName,
           email: result.user.email,
           uid: result.user.uid,
           photoUrl: result.user.photoURL,
         };
+        // get jwt token
+        await axios
+        .post("http://localhost:5000/api/jwt", newUser)
+        .then((res) => {
+          localStorage.setItem("token", res.data.token);
+        })
+        .catch((err) => console.log(err));
         saveGoogleUserToDatabase(newUser);
         navigate(from, { replace: true });
       })
@@ -106,13 +122,20 @@ const Register = () => {
   const signInGithub = () => {
     setLoading(true);
     handleGithubSignIn()
-      .then((result) => {
+      .then(async(result) => {
         const newUser = {
           name: result.user.displayName,
           email: result.user.email,
           uid: result.user.uid,
           photoUrl: result.user.photoURL,
         };
+        // get jwt token
+        await axios
+        .post("http://localhost:5000/api/jwt", newUser)
+        .then((res) => {
+          localStorage.setItem("token", res.data.token);
+        })
+        .catch((err) => console.log(err));
         saveGoogleUserToDatabase(newUser);
         navigate(from, { replace: true });
       })

@@ -68,6 +68,9 @@ const useFirebase = () => {
     signOut(auth)
       .then(() => {
         setUser(null);
+        if(localStorage.getItem('token')){
+          localStorage.removeItem('token')
+        }
       })
       .finally(() => setLoading(false));
   };

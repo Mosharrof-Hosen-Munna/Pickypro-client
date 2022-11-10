@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import useAuth from "../../../Hooks/useAuth";
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,6 +10,8 @@ const ReviewForm = ({ service,serviceReviews,setServiceReviews }) => {
   const [ratingNumber, setRatingNumber] = useState(3);
   const [reviewText, setReviewText] = useState("");
 
+  const location = useLocation()
+
   const { user } = useAuth();
 
   const notify = () => toast("Review successfully submitted!");
@@ -18,7 +20,7 @@ const ReviewForm = ({ service,serviceReviews,setServiceReviews }) => {
   if (!user) {
     return (
       <div className="text-center text-2xl font-semibold mt-8 hover:text-purple-700">
-        <Link to="/login"> Please login to add a new review...</Link>
+        <Link state={{ from: location }} replace to="/login"> Please login to add a new review...</Link>
       </div>
     );
   }

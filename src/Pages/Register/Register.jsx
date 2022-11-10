@@ -1,8 +1,9 @@
-import { async } from '@firebase/util';
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
+import { Dna } from  'react-loader-spinner'
+
 
 const Register = () => {
     const [registerData, setRegisterData] = useState({});
@@ -14,6 +15,7 @@ const Register = () => {
         setUserName,
         setLoading,
         user,
+        loading,
         handleGithubSignIn,
         saveUserToDatabase,
         saveGoogleUserToDatabase
@@ -141,6 +143,22 @@ const Register = () => {
       })
       .finally(() => setLoading(false));
   };
+
+if(loading){
+  <div className="container mx-auto ">
+      <div className="flex justify-center items-center py-48">
+      <Dna
+    visible={true}
+    height="250"
+    width="250"
+    ariaLabel="dna-loading"
+    wrapperStyle={{}}
+    wrapperClass="dna-wrapper"
+  />
+      </div>
+    </div>
+}
+
   return (
     <div>
     <div className=" min-h-screen px-4 bg-slate-100">

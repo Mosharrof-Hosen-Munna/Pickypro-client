@@ -23,7 +23,7 @@ const Navigation = () => {
               </li>
               {user&&<>
                 <li>
-                <Link to="/add-new-service">Add Service</Link>
+                <Link  to="/add-new-service">Add Service</Link>
               </li>
               <li>
                 <Link to="/my-reviews">My Reviews</Link>

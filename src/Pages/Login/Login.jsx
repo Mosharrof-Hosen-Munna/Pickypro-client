@@ -1,8 +1,9 @@
-import { async } from "@firebase/util";
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import { Dna } from  'react-loader-spinner'
+
 
 const Login = () => {
   const [loginData, setLoginData] = useState({});
@@ -10,11 +11,14 @@ const Login = () => {
 
   const {
     handleEmailPasswordLogin,
+    loading,
     setLoading,
     handleGoogleSignIn,
     saveGoogleUserToDatabase,
     handleGithubSignIn,
   } = useAuth();
+
+  
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -63,7 +67,7 @@ const Login = () => {
   const signInGoogle = () => {
     setLoading(true);
     handleGoogleSignIn()
-      .then(async(result) => {
+      .then(async (result) => {
         const newUser = {
           name: result.user.displayName,
           email: result.user.email,
@@ -72,11 +76,11 @@ const Login = () => {
         };
         // get jwt token
         await axios
-        .post("https://pickypro-server.vercel.app/api/jwt", newUser)
-        .then((res) => {
-          localStorage.setItem("token", res.data.token);
-        })
-        .catch((err) => console.log(err));
+          .post("https://pickypro-server.vercel.app/api/jwt", newUser)
+          .then((res) => {
+            localStorage.setItem("token", res.data.token);
+          })
+          .catch((err) => console.log(err));
         saveGoogleUserToDatabase(newUser);
         navigate(from, { replace: true });
       })
@@ -87,7 +91,7 @@ const Login = () => {
   const signInGithub = () => {
     setLoading(true);
     handleGithubSignIn()
-      .then(async(result) => {
+      .then(async (result) => {
         const newUser = {
           name: result.user.displayName,
           email: result.user.email,
@@ -96,16 +100,33 @@ const Login = () => {
         };
         // get jwt token
         await axios
-        .post("https://pickypro-server.vercel.app/api/jwt", newUser)
-        .then((res) => {
-          localStorage.setItem("token", res.data.token);
-        })
-        .catch((err) => console.log(err));
+          .post("https://pickypro-server.vercel.app/api/jwt", newUser)
+          .then((res) => {
+            localStorage.setItem("token", res.data.token);
+          })
+          .catch((err) => console.log(err));
         saveGoogleUserToDatabase(newUser);
         navigate(from, { replace: true });
       })
       .finally(() => setLoading(false));
   };
+
+  if (loading) {
+    return (
+      <div className="container mx-auto ">
+        <div className="flex justify-center items-center py-48">
+          <Dna
+            visible={true}
+            height="250"
+            width="250"
+            ariaLabel="dna-loading"
+            wrapperStyle={{}}
+            wrapperClass="dna-wrapper"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

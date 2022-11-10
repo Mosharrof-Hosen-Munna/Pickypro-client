@@ -31,14 +31,32 @@ const Navigation = () => {
               <li>
                 <Link to="/blog">Blog</Link>
               </li>
-              <li>
+              
+              {
+              !user&&<>
+              <li><Link
+                to="/login"
+                className="bg-primary py-3 mb-4 px-6 mx-2 rounded-full text-white"
+              >
+                Login
+              </Link></li>
+              <li> <Link
+                to="/register"
+                className="bg-purple-700 py-3 px-6 mx-2 rounded-full text-white"
+              >
+                Signup
+              </Link></li></>
+            
+            }
+              
+             {user&& <li>
               <div
               onClick={logOut}
                   className="bg-purple-700 cursor-pointer py-3 px-6 mx-2 rounded-full text-white"
                 >
                   Logout
                 </div>
-              </li>
+              </li>}
       </ul>
     </div>
     <div className="flex">
@@ -72,7 +90,7 @@ const Navigation = () => {
   <div className="navbar-end">
   <div className="flex items-center">
             {
-              !user&&<div className="text-lg">
+              !user&&<div className="text-lg hidden md:block">
               <Link
                 to="/login"
                 className="bg-primary py-3 px-6 mx-2 rounded-full text-white"

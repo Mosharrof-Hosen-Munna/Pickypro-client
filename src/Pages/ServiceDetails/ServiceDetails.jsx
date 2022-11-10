@@ -74,13 +74,13 @@ const ServiceDetails = () => {
           </PhotoView>
         </PhotoProvider>
             <div className="flex justify-between items-center">
-              <h1 className="text-4xl text-purple-700 font-semibold my-8">
+              <h1 className="md:text-4xl text-2xl text-purple-700 font-semibold my-8">
                 {title}
               </h1>
                 <div>
-                <h1 className="text-3xl text-purple-700 font-semibold">Price: ${price}</h1>
+                <h1 className="md:text-3xl text-xl text-purple-700 text-center font-semibold">Price: ${price}</h1>
               <div className="flex items-center">
-                <span className="text-xl font-semibold">Ratings: </span>
+                <span className="text-xl hidden md:block font-semibold">Ratings: </span>
                 <StarRatings
                   rating={parseInt(ratings)}
                   starRatedColor="purple"
@@ -126,7 +126,7 @@ const ServiceDetails = () => {
               setServiceReviews={setServiceReviews}
             />
           </div>
-          <div className="md:w-1/3 ml-6">
+          <div className="md:w-1/3 md:ml-6 mt-8 md:mt-0">
             <div>
               <h1 className="text-3xl font-semibold text-purple-700 mb-8">
                 Similar Services

@@ -5,18 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const WhyChooseMe = () => {
   return (
-    <section className="py-24">
+    <section className="md:py-24 px-4 py-12">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
             <img className="w-full p-0 md:px-44" src={chooseMeImg} alt="" />
           </div>
-          <div className="flex items-center">
-            <div>
-              <h3 className=" text-purple-700 italic text-2xl font-semibold">
+          <div className="flex items-center ">
+            <div className="">
+              <h3 className="text-center md:text-start text-purple-700 italic text-2xl font-semibold">
                 Why Choose Me
               </h3>
-              <h1 className="text-6xl font-semibold mb-8 mt-6">
+              <h1 className="md:text-6xl text-center md:text-start text-3xl font-semibold mb-8 mt-6">
                 Adding the memories of every moment
               </h1>
               <div className="flex items-start my-6">

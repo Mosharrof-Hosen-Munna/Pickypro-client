@@ -3,14 +3,14 @@ import weddingImg from "../../../images/elegant-wedding.jpg";
 
 const ContactMe = () => {
   return (
-    <section className="py-24">
+    <section className="md:py-24 px-4 py-12">
       <div className="container mx-auto">
         <div className="md:flex">
-          <div className="w-full md:w-2/4">
-            <h1 className="text-6xl mb-4 font-semibold ">
+          <div className="w-full md:w-2/4 mb-8 md:mb-0">
+            <h1 className="md:text-6xl text-4xl text-center md:text-start mb-4 font-semibold ">
               I'd love to hear from you
             </h1>
-            <p className="text-lg text-purple-700">
+            <p className="text-lg text-purple-700 text-center md:text-start">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa,
               rerum.
             </p>
@@ -59,7 +59,7 @@ const ContactMe = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-2/4 ml-8">
+          <div className="w-full md:w-2/4 md:ml-8">
             <div className="w-5/6 mx-auto text-center">
               <img
                 className=" p-12 border-t-8 border-purple-700 rounded-t-full"

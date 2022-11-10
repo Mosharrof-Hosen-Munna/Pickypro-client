@@ -5,15 +5,50 @@ import useAuth from "../../../Hooks/useAuth";
 const Navigation = () => {
   const { user,logOut } = useAuth();
   return (
-    <nav className="   font-semibold shadow-md shadow-slate-300 bg-white sticky top-0 z-50">
-      <div className="navbar py-4 container mx-auto ">
-        <div className="flex justify-between w-full">
-          <div className="flex">
-            <a className="btn btn-ghost normal-case text-4xl">
+   <>
+    
+   <nav className="font-semibold shadow-md shadow-slate-300 bg-white sticky top-0 z-50">
+   <div className="navbar  py-4 container mx-auto">
+  <div className="navbar-start">
+    <div className="dropdown">
+      <label tabIndex={0} className="btn btn-ghost lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+      </label>
+      <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+      <li>
+                <Link to="/home">Home</Link>
+              </li>
+              <li>
+                <Link to="/services">Services</Link>
+              </li>
+              {user&&<>
+                <li>
+                <Link  to="/add-new-service">Add Service</Link>
+              </li>
+              <li>
+                <Link to="/my-reviews">My Reviews</Link>
+              </li></>}
+              <li>
+                <Link to="/blog">Blog</Link>
+              </li>
+              <li>
+              <div
+              onClick={logOut}
+                  className="bg-purple-700 cursor-pointer py-3 px-6 mx-2 rounded-full text-white"
+                >
+                  Logout
+                </div>
+              </li>
+      </ul>
+    </div>
+    <div className="flex">
+            <Link to='/' className=" normal-case text-4xl">
               PICKY<span className="text-purple-700">PRO</span>
-            </a>
+            </Link>
           </div>
-          <div className="flex-none">
+  </div>
+  <div className="navbar-center hidden lg:flex">
+  <div className="flex-none">
             <ul className="menu menu-horizontal p-0 text-lg text-purple-800">
               <li>
                 <Link to="/home">Home</Link>
@@ -33,7 +68,9 @@ const Navigation = () => {
               </li>
             </ul>
           </div>
-          <div className="flex items-center">
+  </div>
+  <div className="navbar-end">
+  <div className="flex items-center">
             {
               !user&&<div className="text-lg">
               <Link
@@ -54,7 +91,7 @@ const Navigation = () => {
               user&&<div className="flex items center">
               <div
               onClick={logOut}
-                  className="bg-purple-700 cursor-pointer py-3 px-6 mx-2 rounded-full text-white"
+                  className="bg-purple-700 hidden md:block cursor-pointer py-3 px-6 mx-2 rounded-full text-white"
                 >
                   Logout
                 </div>
@@ -66,9 +103,8 @@ const Navigation = () => {
               </div>
             }
           </div>
-        </div>
-      </div>
-    </nav>
+  </div>
+</div></nav></>
   );
 };
 

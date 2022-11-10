@@ -25,7 +25,7 @@ _Registration system using firebase, user can manage their review (update,delete
 - [x] https://github.com/Porgramming-Hero-web-course/b6a11-service-review-client-side-Mosharrof-Hosen-Munna
 
 > Live Website Link: 
-- [x] https://study-care-12dd0.web.app/
+- [x] https://pickypro-63c61.web.app/
 > From the project directory run: -
 
 - [x] npm install.

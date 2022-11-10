@@ -9,15 +9,15 @@ const SimilarServiceCard = ({ children, service,isShow }) => {
   const { image, price, description, title, ratings } = service;
   return (
     <div className="card shadow-lg my-4 rounded-md shadow-slate-200 p-2">
-      <div className="flex">
-        <div className="w-1/3">
+      <div className="md:flex">
+        <div className="md:w-1/3">
           <img
             className="w-full rounded-md"
             src={image}
             alt=""
           />
         </div>
-        <div className="ml-4 w-2/3">
+        <div className="md:ml-4 p-2 md:w-2/3">
           <h1 className="font-semibold text-2xl">{title}</h1>
          {!isShow &&  <p>{description.slice(0,70)}...</p>}
           <h1 className="text-xl text-purple-700 font-semibold ">Price: ${price}</h1>

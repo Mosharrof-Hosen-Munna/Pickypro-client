@@ -10,17 +10,28 @@ const ReviewCard = ({ review,handleReviewDelete }) => {
   return (
     <div className="flex items-start bg-white shadow-lg rounded-lg shadow-slate-200 p-4 my-4">
       <div className="avatar">
-        <div className="w-14 rounded-full">
+        <div className="md:w-14 w-10 rounded-full">
           <img src={author.photoURL} />
         </div>
       </div>
-      <div className="ml-8 w-full">
+      <div className="md:ml-8 ml-4 w-full">
         <div className="flex items-center justify-between">
           <div className="mb-4">
             <h3 className="text-xl font-bold">{author.name}</h3>
             <Moment fromNow>{new Date(time)}</Moment>
+            <div className=" md:hidden block text-rose-600">
+          <StarRatings
+              rating={parseInt(rating)}
+              starRatedColor="purple"
+              starDimension="20px"
+        starSpacing="1px"
+              numberOfStars={5}
+              name="rating"
+            />
+                ({rating})
           </div>
-          <div className="flex text-rose-600">
+          </div>
+          <div className=" hidden md:block text-rose-600">
           <StarRatings
               rating={parseInt(rating)}
               starRatedColor="purple"

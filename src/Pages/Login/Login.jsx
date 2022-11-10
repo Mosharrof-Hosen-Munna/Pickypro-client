@@ -33,9 +33,10 @@ const Login = () => {
   };
 
   const handleEmailLogin = (e) => {
-    setLoading(true);
+    
     e.preventDefault();
     if (loginData.email && loginData.password) {
+      setLoading(true);
       handleEmailPasswordLogin(loginData.email, loginData.password)
         .then(async (result) => {
           const newUser = {

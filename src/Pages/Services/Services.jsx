@@ -40,13 +40,13 @@ const Services = () => {
     <section className="py-12 px-4">
       <div className="container mx-auto">
         <div className="text-start">
-          <h2 className="text-purple-700 italic text-2xl mb-4 font-semibold">
+          <h2 className="text-purple-700 text-center md:text-start italic text-2xl mb-4 font-semibold">
             My Services
           </h2>
-          <h1 className="text-5xl font-semibold leading-tight">
-            Making Precious Moments <br /> of Wedding.
+          <h1 className="md:text-5xl text-center md:text-start text-3xl font-semibold ">
+            Making Precious Moments <br className="mt-4 block"/> of Wedding.
           </h1>
-          <div className="w-1/12 p-1 bg-purple-700 mt-3"></div>
+          <div className="md:w-1/12 w-3/12 mx-auto md:mx-0 p-1 bg-purple-700 mt-3"></div>
         </div>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-12">
              {  services.map(service=><ServiceCard service={service}/>)}

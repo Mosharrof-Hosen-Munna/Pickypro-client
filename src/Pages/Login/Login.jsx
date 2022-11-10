@@ -1,3 +1,5 @@
+import { async } from "@firebase/util";
+import axios from "axios";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
@@ -30,8 +32,23 @@ const Login = () => {
         e.preventDefault();
        if(loginData.email&&loginData.password){
         handleEmailPasswordLogin(loginData.email, loginData.password)
-        .then((result) => {
-          navigate(from, { replace: true });
+        .then(async(result) => {
+          const newUser = {
+            name: result.user.displayName,
+            email: result.user.email,
+            uid: result.user.uid,
+            photoUrl: result.user.photoURL,
+          };
+          console.log(result.user)
+
+          // get jwt token
+        await  axios.post('http://localhost:5000/api/jwt',newUser)
+          .then(res =>{
+            localStorage.setItem('token',res.data.token)
+          })
+          .catch(err=>console.log(err))
+
+          // navigate(from, { replace: true });
         })
         .catch((e) => {
           console.log(e);

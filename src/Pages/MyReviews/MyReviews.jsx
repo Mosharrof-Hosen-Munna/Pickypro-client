@@ -4,9 +4,13 @@ import useAuth from '../../Hooks/useAuth'
 import MySingleReview from './MySingleReview/MySingleReview'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Dna } from  'react-loader-spinner'
+
 
 const MyReviews = () => {
   const [reviews,setReviews] = useState([])
+  const [isLoading,setIsLoading] = useState(true)
+
   
   const notify = () => toast("Review successfully deleted");
   const {user} = useAuth()
@@ -14,11 +18,11 @@ const MyReviews = () => {
   useEffect(()=>{
     window.scrollTo(0, 0);
     document.title = 'My reviews | PickyPro Photography'
-
+    setIsLoading(true)
     fetch(`http://localhost:5000/api/reviews/user/${user?.uid}`)
     .then(res=>res.json())
     .then(data=>{
-      console.log(data)
+      setIsLoading(false)
       setReviews(data)})
     .catch(err=>console.log(err))
   },[user])
@@ -39,6 +43,21 @@ const MyReviews = () => {
     const newReviews = [...reviews]
     newReviews[index] = review
     setReviews(newReviews)
+  }
+  
+  if(isLoading){
+    return <div className="container mx-auto ">
+      <div className="flex justify-center items-center py-48">
+      <Dna
+    visible={true}
+    height="250"
+    width="250"
+    ariaLabel="dna-loading"
+    wrapperStyle={{}}
+    wrapperClass="dna-wrapper"
+  />
+      </div>
+    </div>
   }
 
   if(!reviews[0]){

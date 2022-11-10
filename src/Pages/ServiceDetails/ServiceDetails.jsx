@@ -7,10 +7,14 @@ import SimilarServiceCard from "./SimilarServiceCard/SimilarServiceCard";
 import { useLoaderData } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import axios from "axios";
+import { Dna } from  'react-loader-spinner'
+
 
 const ServiceDetails = () => {
   const [similarService, setSimilarService] = useState([]);
   const [serviceReviews, setServiceReviews] = useState([]);
+  const [isLoading,setIsLoading] = useState(true)
+
   const { service, reviews } = useLoaderData();
   const { image, price, description, title, ratings } = service;
 
@@ -18,10 +22,12 @@ const ServiceDetails = () => {
     window.scrollTo(0, 0);
     document.title = service.title + ' Service Details'
     setServiceReviews(reviews);
-
+    setIsLoading(true)
     axios
       .get("http://localhost:5000/api/services")
-      .then((res) => setSimilarService(res.data))
+      .then((res) => {
+        setIsLoading(false)
+        setSimilarService(res.data)})
       .catch((err) => console.log(err));
   }, [service._id]);
 
@@ -35,6 +41,21 @@ const ServiceDetails = () => {
       }
     })
     .catch(err=>console.log(err))
+  }
+  
+  if(isLoading){
+    return <div className="container mx-auto ">
+      <div className="flex justify-center items-center py-48">
+      <Dna
+    visible={true}
+    height="250"
+    width="250"
+    ariaLabel="dna-loading"
+    wrapperStyle={{}}
+    wrapperClass="dna-wrapper"
+  />
+      </div>
+    </div>
   }
 
 

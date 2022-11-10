@@ -35,10 +35,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/services",
-        element: <Services />,
-        loader: async()=>{
-          return fetch('http://localhost:5000/api/services')
-        }
+        element: <Services />
         
       },
       {

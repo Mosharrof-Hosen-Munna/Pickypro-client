@@ -1,14 +1,40 @@
-import React, { useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Dna } from  'react-loader-spinner'
 import ServiceCard from "../Shared/ServiceCard/ServiceCard";
 
 const Services = () => {
+  const [services,setServices] = useState([])
+  const [isLoading,setIsLoading] = useState(true)
 
-  const services = useLoaderData()
   useEffect(() => {
     window.scrollTo(0, 0)
     document.title= 'Services | Making Precious Moments of Wedding.'
+
+    axios.get('http://localhost:5000/api/services')
+    .then(res=>{
+      setServices(res.data)
+      setIsLoading(false)})
+    .catch(err=>console.log(err))
+
   }, [])
+
+  if(isLoading){
+    return <div className="container mx-auto ">
+      <div className="flex justify-center items-center py-48">
+      <Dna
+    visible={true}
+    height="250"
+    width="250"
+    ariaLabel="dna-loading"
+    wrapperStyle={{}}
+    wrapperClass="dna-wrapper"
+  />
+      </div>
+    </div>
+  }
+
+  
 
   return (
     <section className="py-12 px-4">

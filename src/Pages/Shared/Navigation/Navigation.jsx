@@ -7,7 +7,7 @@ const Navigation = () => {
   return (
    <>
     
-   <nav className="font-semibold shadow-md shadow-slate-300 bg-white sticky top-0 z-50">
+   <nav className="font-semibold  shadow-md shadow-slate-300 bg-white sticky top-0 z-50">
    <div className="navbar  py-4 container mx-auto">
   <div className="navbar-start">
     <div className="dropdown">

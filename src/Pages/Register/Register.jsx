@@ -35,11 +35,12 @@ const Register = () => {
     };
     // validate registration data
   const validationRegister = (name, password) => {
+    console.log(name,password)
     const errorMessage = {};
-    if (name.length < 5 || name.length > 15) {
+    if (name.length < 5 || name.length > 15 || !name) {
       errorMessage.name = "Name Must be between 5 to 15 characters";
     }
-    if (password.length < 6 || password.length > 14) {
+    if (password.length < 6 || password.length > 14 || !password) {
       errorMessage.password = "Password Must be between 5 to 14 characters";
     }
     return errorMessage;
@@ -47,6 +48,7 @@ const Register = () => {
 
   // handle email registration function
   const handleEmailRegistration = (e) => {
+    console.log(error)
     setLoading(true);
     e.preventDefault();
 
@@ -54,10 +56,15 @@ const Register = () => {
       registerData?.name,
       registerData?.password
     );
+    console.log(errorMessage)
 
     if (errorMessage.name || errorMessage.password) {
       setError(errorMessage);
       return;
+    }
+    if(!registerData.email){
+      setError({...error, email: 'Please provide your email address'})
+      return
     }
 
     handleEmailPasswordRegister(
@@ -179,7 +186,9 @@ if(loading){
                   type="text"
                   placeholder="Enter Your Name"
                   className="input input-bordered"
+                  required
                 />
+                <span className='text-xs text-red-600'>{error.name && error.name}</span>
               </div>
               <div className="form-control">
                   <label className="label">
@@ -205,7 +214,9 @@ if(loading){
                   type="email"
                   placeholder="email"
                   className="input input-bordered"
+                  required
                 />
+                 <span className='text-xs text-red-600'>{error.email && error.email}</span>
               </div>
               <div className="form-control">
                 <label className="label">
@@ -217,7 +228,9 @@ if(loading){
                   type="password"
                   placeholder="password"
                   className="input input-bordered"
+                  required
                 />
+                 <span className='text-xs text-red-600'>{error.password && error.password}</span>
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
                     Forgot password?

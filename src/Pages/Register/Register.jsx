@@ -48,8 +48,8 @@ const Register = () => {
 
   // handle email registration function
   const handleEmailRegistration = (e) => {
-    console.log(error)
-    setLoading(true);
+    
+    
     e.preventDefault();
 
     const errorMessage = validationRegister(
@@ -66,6 +66,7 @@ const Register = () => {
       setError({...error, email: 'Please provide your email address'})
       return
     }
+    setLoading(true);
 
     handleEmailPasswordRegister(
       registerData?.email,
